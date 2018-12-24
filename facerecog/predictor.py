@@ -69,6 +69,9 @@ class FaceRecogPredictor:
         self.model.save_weights("model.h5")
 
     def load(self):
+        inside = os.listdir(MODEL_DIR)
+        if "model.json" not in inside or if "model.h5" not in inside:
+            raise ValueError("Make sure both model.json and model.h5 are inside \'models/\'") 
         with open(MODEL_DIR + "model.json", "w") as json_file:
             self.model = model_from_json(json_file.read())
         self.model.load_weights(MODEL_DIR + "model.h5")
